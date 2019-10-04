@@ -1,3 +1,5 @@
+import 'package:explore_flutter/custom_dialog/custom_dialog.dart';
+import 'package:explore_flutter/custom_dialog/dialog_items.dart';
 import 'package:flutter/material.dart';
 import 'fab_menu/fab_menu.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -47,11 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: _height*0.885,
+        child:Container(
               child:Align(
                 alignment: Alignment.bottomRight,
                 child:Padding(
@@ -62,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             new Icon(FontAwesomeIcons.user,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add person");},
+                            _buildAddPersonDialog,
                             "ADD PERSON",
                             Colors.white,
                             false
@@ -71,16 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             new Icon(FontAwesomeIcons.shoppingCart,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add product");},
+                            _buildAddProductDialog,
                             "ADD PRODUCT",
                             Colors.white,
                             false
                         ),
                         new FabMenuButton.withText(
-                            new Icon(FontAwesomeIcons.calendarCheck ,color: Colors.white,),
+                            new Icon(FontAwesomeIcons.calendarPlus ,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add event");},
+                            _buildAddEventDialog,
                             "ADD EVENT",
                             Colors.white,
                             false
@@ -95,9 +93,185 @@ class _MyHomePageState extends State<MyHomePage> {
                       0.7
                   ),
                 ),),),
-          ],
-        ),
       ),
+    );
+  }
+  
+  
+  _buildAddPersonDialog(){
+    List<DialogItem> inputFields = [
+      DialogItem.buildTextFieldWithInputDecorationIcon(
+        inputAction: TextInputAction.done,
+        inputDecorationLabelText: "Name",
+        controller: TextEditingController(),
+        keyboardType: TextInputType.text,
+        inputDecorationIconColor: Colors.purple,
+        inputDecorationIconData: FontAwesomeIcons.user,
+      ),
+      DialogItem.buildTextFieldWithInputDecorationLabel(
+        inputAction: TextInputAction.done,
+        inputDecorationLabelText: "Age",
+        controller: TextEditingController(),
+        keyboardType: TextInputType.number,
+      ),
+      DialogItem.buildTextFieldWithInputDecorationLabel(
+        inputDecorationLabelText: "Job",
+        inputAction: TextInputAction.done,
+        controller: TextEditingController(),
+        keyboardType: TextInputType.text,
+      )
+
+    ];
+    List<DialogItem> raisedButtons = [
+      DialogItem.buildRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonLabelText: "Add",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){}
+      ),
+      DialogItem.buildRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonLabelText: "Cancel",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){
+            Navigator.pop(context);
+          }
+      )
+    ];
+
+    showDialog(
+        context: context,
+        // ignore: deprecated_member_use
+        child:CustomDialog(
+          dialogColor: Colors.purple[50],
+          title:"Add Person",
+          titleTextColor:Colors.purple,
+          height: _height*0.75,
+          width:_width*0.8,
+          inputFieldsList: inputFields,
+          raisedButtonsList: raisedButtons,
+        )
+    );
+  }
+  
+  _buildAddProductDialog(){
+    List<DialogItem> inputFields = [
+      DialogItem.buildTextFieldWithInputDecorationLabel(
+        inputAction: TextInputAction.done,
+        inputDecorationLabelText: "Product Name",
+        controller: TextEditingController(),
+        keyboardType: TextInputType.text,
+      ),
+      DialogItem.buildDateTextFieldWithInputDecorationLabel(
+        inputDecorationLabelText: "Dispact date",
+        controller: TextEditingController(),
+      ),
+    ];
+    List<DialogItem> raisedButtons = [
+      DialogItem.buildIconRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonIconColor: Colors.white,
+          raisedButtonIconData: Icons.add_circle_outline,
+          raisedButtonLabelText: "Add",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){}
+      ),
+      DialogItem.buildIconRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonIconColor: Colors.white,
+          raisedButtonIconData: FontAwesomeIcons.timesCircle,
+          raisedButtonLabelText: "Cancel",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){
+            Navigator.pop(context);
+          }
+      )
+    ];
+
+    showDialog(
+        context: context,
+        // ignore: deprecated_member_use
+        child:CustomDialog(
+          dialogColor: Colors.purple[50],
+          title:"Add Product",
+          titleTextColor:Colors.purple,
+          height: _height*0.75,
+          width:_width*0.8,
+          inputFieldsList: inputFields,
+          raisedButtonsList: raisedButtons,
+        )
+    );
+  }
+  
+  _buildAddEventDialog(){
+    List<DialogItem> inputFields = [
+      DialogItem.buildTextFieldWithInputDecorationIcon(
+        inputAction: TextInputAction.done,
+        inputDecorationLabelText: "Event Name",
+        controller: TextEditingController(),
+        keyboardType: TextInputType.text,
+        inputDecorationIconData: FontAwesomeIcons.info,
+        inputDecorationIconColor: Colors.purple
+      ),
+      DialogItem.buildDateTextFieldWithInputDecorationIcon(
+        inputDecorationLabelText: "Event date",
+        controller: TextEditingController(),
+        inputDecorationIconData: FontAwesomeIcons.calendar,
+        inputDecorationIconColor: Colors.purple
+
+      ),
+    ];
+    List<DialogItem> raisedButtons = [
+      DialogItem.buildIconRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonIconColor: Colors.white,
+          raisedButtonIconData: Icons.add_circle_outline,
+          raisedButtonLabelText: "Add",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){}
+      ),
+      DialogItem.buildIconRaisedButton(
+          raisedButtonColor: Colors.purple,
+          raisedButtonDisabledColor: Colors.purple[100],
+          raisedButtonSplashColor: Colors.white,
+          raisedButtonBorderRadius: 30.0,
+          raisedButtonIconColor: Colors.white,
+          raisedButtonIconData: FontAwesomeIcons.timesCircle,
+          raisedButtonLabelText: "Cancel",
+          raisedButtonLabelTextColor: Colors.white,
+          raisedButtonOnPressed: (){
+            Navigator.pop(context);
+          }
+      )
+    ];
+
+    showDialog(
+        context: context,
+        // ignore: deprecated_member_use
+        child:CustomDialog(
+          dialogColor: Colors.purple[50],
+          title:"Add Event",
+          titleTextColor:Colors.purple,
+          height: _height*0.75,
+          width:_width*0.8,
+          inputFieldsList: inputFields,
+          raisedButtonsList: raisedButtons,
+        )
     );
   }
 
