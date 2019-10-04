@@ -47,10 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
+        child: Container(
               height: _height*0.885,
               child:Align(
                 alignment: Alignment.bottomRight,
@@ -95,8 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       0.7
                   ),
                 ),),),
-          ],
-        ),
       ),
     );
   }
