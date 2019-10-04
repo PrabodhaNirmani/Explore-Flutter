@@ -62,26 +62,26 @@ class _MyHomePageState extends State<MyHomePage> {
                             new Icon(FontAwesomeIcons.user,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add name");},
-                            "ADD NAME",
+                            (){print ("tapped on add person");},
+                            "ADD PERSON",
                             Colors.white,
                             false
                         ),
                         new FabMenuButton.withText(
-                            new Icon(FontAwesomeIcons.calendar,color: Colors.white,),
+                            new Icon(FontAwesomeIcons.shoppingCart,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add name");},
-                            "ADD BIRTHDAY",
+                            (){print ("tapped on add product");},
+                            "ADD PRODUCT",
                             Colors.white,
                             false
                         ),
                         new FabMenuButton.withText(
-                            new Icon(FontAwesomeIcons.phone ,color: Colors.white,),
+                            new Icon(FontAwesomeIcons.calendarCheck ,color: Colors.white,),
                             Colors.transparent,
                             5.0,
-                            (){print ("tapped on add name");},
-                            "ADD PHONE NUMBER",
+                            (){print ("tapped on add event");},
+                            "ADD EVENT",
                             Colors.white,
                             false
                         ),
@@ -100,4 +100,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
