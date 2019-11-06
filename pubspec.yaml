@@ -24,6 +24,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   font_awesome_flutter: 8.4.0
   intl: ^0.16.0
+  firebase_core:
+  firebase_dynamic_links:
 
 dev_dependencies:
   flutter_test:

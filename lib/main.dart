@@ -1,6 +1,8 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_flutter/fab_menu/fab_menu_utilities.dart';
 import 'package:flutter/cupertino.dart';
+import 'firebase_dynamic_link/firebase_dynamic_link_utilities.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     FabMenuUtilities.setCallBack(mainUIChangedCallBack);
+    FirebaseDLUtilities.retrieveDynamicLink();
     super.initState();
   }
 
@@ -55,11 +58,29 @@ class _MyHomePageState extends State<MyHomePage> {
       body:Stack(
         children: <Widget>[
           Container(
-            height: _height,
+            height: _height*0.5,
             child: _isEmpty ? FabMenuUtilities.getListEmptyMessage(): FabMenuUtilities.getListView(),
           ),
           FabMenuUtilities.getFabMenu(context, _height, _width),
         ],
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              height: _height*0.25,
+              color: Colors.deepPurple,
+            ),
+            ListTile(
+              title: Text("Invite Peole", style: TextStyle(fontSize: 18.0,color: Colors.deepPurple),),
+              onTap: ()async{
+                String link = await FirebaseDLUtilities.createDynamicLinkWithParams("invite-people");
+                print(link);
+              },
+            )
+          ],
+        ),
+        elevation: 4.0,
       )
     );
   }
