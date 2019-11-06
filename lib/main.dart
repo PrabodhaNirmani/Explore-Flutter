@@ -2,6 +2,9 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_flutter/fab_menu/fab_menu_utilities.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+
+import 'date_time_picker/date_time_picker_utilities.dart';
 import 'firebase_dynamic_link/firebase_dynamic_link_utilities.dart';
 
 void main() => runApp(MyApp());
@@ -34,12 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
   static double _height;
   static double _width;
   static double _appBarHeight;
-  bool _isEmpty=true;
+  bool _isEmpty;
+  String _time;
 
   @override
   void initState() {
     FabMenuUtilities.setCallBack(mainUIChangedCallBack);
     FirebaseDLUtilities.retrieveDynamicLink();
+    DateTimePickerUtilities.setCallBack(timePickerValueCaptured);
+    _isEmpty = true;
+    _time = DateFormat.yMMMEd("en_US").format(DateTime.now())
+        + " , " + DateFormat("h:mm a").format(DateTime.now());
     super.initState();
   }
 
@@ -77,8 +85,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 String link = await FirebaseDLUtilities.createDynamicLinkWithParams("invite-people");
                 print(link);
               },
-            )
-          ],
+            ),
+            Divider(thickness: 0.5,),
+            ListTile(
+              title: Text("Time Picker", style: TextStyle(fontSize: 18.0,color: Colors.deepPurple),),
+              onTap: (){
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return DateTimePickerUtilities.getTimePicker(_height, _width, context);
+                    });
+              },
+              subtitle: Text(_time),
+            ),
+            Divider(thickness: 0.5,),
+
+      ],
         ),
         elevation: 4.0,
       )
@@ -91,6 +113,13 @@ class _MyHomePageState extends State<MyHomePage> {
         _isEmpty = false;
       });
     }
+  }
+
+
+  timePickerValueCaptured(String time){
+    setState(() {
+      _time = time;
+    });
   }
 
 }
