@@ -2,6 +2,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:explore_flutter/fab_menu/fab_menu_utilities.dart';
 import 'package:flutter/cupertino.dart';
+import 'firebase_dynamic_link/firebase_dynamic_link_utilities.dart';
 import 'package:intl/intl.dart';
 
 import 'date_time_picker/date_time_picker_utilities.dart';
@@ -48,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _isEmpty = true;
     _time = DateFormat.yMMMEd("en_US").format(DateTime.now())
         + " , " + DateFormat("h:mm a").format(DateTime.now());
+    FirebaseDLUtilities.retrieveDynamicLink();
     super.initState();
   }
 
